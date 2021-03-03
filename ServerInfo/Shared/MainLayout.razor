@@ -1,0 +1,43 @@
+﻿@inherits LayoutComponentBase
+
+<div class="sidebar">
+    <OrgNav Organizations="organizations"  />
+</div>
+
+<div class="main">
+    <div class="top-row px-4">
+        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+    </div>
+
+    <div class="content px-4">
+        @Body
+    </div>
+</div>
+@code{
+    List<Organization> organizations;
+
+    protected override void OnInitialized()
+    {
+        organizations = new List<Organization>()
+    {
+            new Organization()
+            {
+                Name = "Наровля",
+                FuNum = 314,
+                KoNum = 416
+            },
+            new Organization()
+            {
+                Name = "Ельск",
+                FuNum = 313,
+                KoNum = 414
+            },
+            new Organization()
+            {
+                Name = "Гомель",
+                FuNum = 300,
+                KoNum = 400
+            }
+        };
+    }
+}

@@ -1,0 +1,63 @@
+﻿@if (!IsTable)
+{
+    <div class="row text-center alert-info">
+        <div class="col">
+            <p>@Org.Name</p>
+            <p>@Org.FuNum</p>
+            <p>@Org.KoNum</p>
+        </div>
+    </div>
+
+    if (DisplayButtons)
+    {
+        <div class="row">
+            <div class="col offset-3">
+                <button class="btn btn-danger" @onclick="SwitchOrg">Delete</button>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+    }
+
+
+}
+else
+{
+    <tr>
+        <td>@Org.Name</td>
+        <td>@Org.FuNum</td>
+        <td>@Org.KoNum</td>
+        <td>
+            @if (DisplayButtons)
+            {
+                <button class="btn btn-danger" @onclick="(() => DeleteOrg.InvokeAsync(Org))">Delete</button>
+             
+            }
+
+        </td>
+    </tr>
+}
+
+
+
+@code
+{
+    [Parameter] public Organization Org { get; set; }
+    [Parameter] public bool IsTable { get; set; }
+    [Parameter] public bool DisplayButtons { get; set; } = false;
+    [Parameter] public EventCallback<Organization> DeleteOrg { get; set; }
+
+    [Parameter] public EventCallback SwitchOrg { get; set; }
+
+
+
+   @* string message;
+    void Delete()
+    {
+        //del logic
+        message = $"Organization {Org.Name}";
+    }*@
+
+
+}

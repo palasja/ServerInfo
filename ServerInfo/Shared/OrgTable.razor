@@ -1,0 +1,66 @@
+﻿<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th>Name</th>
+                <th>FoNum</th>
+                <th>KoNum</th>
+                <th><input type="checkbox" @bind="displayButtons" /></th>
+                @* <th><input type="checkbox" @onchange="(() => displayButtons = !displayButtons)"/></th>*@
+            </tr>
+        </thead>
+        <tbody>
+            @if (Organizations == null)
+            {
+                if (NullList != null)
+                {
+                    <tr>@NullList</tr>
+                }
+                else
+                {
+                    <img src="https://i.pinimg.com/originals/a2/dc/96/a2dc9668f2cf170fe3efeb263128b0e7.gif" height="200" />
+                }
+
+            }
+            else if (Organizations.Count == 0)
+            {
+                if (EmptyList != null)
+                {
+                    <tr>@EmptyList</tr>
+                }
+                else
+                {
+                    <img src="https://i.pinimg.com/originals/90/80/60/9080607321ab98fa3e70dd24b2513a20.gif" height="200" />
+                }
+
+            }
+            else
+            {
+                @foreach (var org in Organizations)
+                {
+                    @*<tr>
+                    <td>@org.Name</td>
+                    <td>@org.FuNum</td>
+                    <td>@org.KoNum</td>
+                </tr>*@
+                    <OrgInfo Org="org" IsTable="true" DisplayButtons="displayButtons" DeleteOrg="DeleteOrg" />
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+
+@code {
+    [Parameter] public List<Organization> Organizations { get; set; }
+
+    [Parameter] public RenderFragment NullList { get; set; }
+    [Parameter] public RenderFragment EmptyList { get; set; }
+
+    bool displayButtons = false;
+
+    void DeleteOrg(Organization org) {
+        Organizations.Remove(org);
+    }
+}
+

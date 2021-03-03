@@ -1,0 +1,72 @@
+﻿@page "/"
+
+<OrgTable Organizations="organizations">
+    <NullList>
+        <tr><span style="color:red; font-size:bold">Loading...</span></tr>
+    </NullList>
+    <EmptyList>
+        <tr><span style="color:blue"; >No elements ments</span></tr>
+    </EmptyList>
+</OrgTable>
+@*<OrgInfo Org="orgToShow" IsTable="false" DisplayButtons="true" SwitchOrg="ShowNewOrg"/>*@
+@code{
+    List<Organization> organizations;
+
+    Random random;
+
+    Organization orgToShow;
+
+@*    protected override void OnInitialized()
+    {
+        organizations = new List<Organization>()
+        {
+            new Organization()
+            {
+                Name = "Наровля",
+                FuNum = 314,
+                KoNum = 416
+            },
+            new Organization()
+            {
+                Name = "Ельск",
+                FuNum = 313,
+                KoNum = 414
+            },
+            new Organization()
+            {
+                Name = "Гомель",
+                FuNum = 300,
+                KoNum = 400
+            }
+        };
+
+        random = new Random(DateTime.Now.Millisecond);
+        orgToShow = organizations[random.Next(0, organizations.Count)];
+    }*@
+
+    void ShowNewOrg()
+    {
+        orgToShow = SwitchOrg();
+    }
+
+    Organization SwitchOrg()
+    {
+        Organization tmpOrg;
+
+        if (organizations.Count >= 2)
+        {
+            int iterator = random.Next(0, organizations.Count);
+            tmpOrg = organizations[iterator];
+        }
+        else if (organizations.Count == 1)
+        {
+            tmpOrg = organizations[0];
+        }
+        else
+        {
+            return new Organization() { Name = "No items in array"};
+        }
+
+        return tmpOrg;
+    }
+}
